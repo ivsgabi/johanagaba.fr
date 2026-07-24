@@ -1,167 +1,270 @@
 "use client"
 
 import React, { useState } from "react"
-import { ChevronDown } from "lucide-react"
-import { Button }from "@/components/ui/button"
-import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion"
+import Link from "next/link"
+
+type NodeType =
+  | "education"
+  | "experience"
+  | "project"
+
+type GraphNode = {
+  id: string
+  label: string
+  type: NodeType
+  x: number
+  y: number
+  description?: string
+  details?: string[]
+}
+
+const NODES: GraphNode[] = [
+  // EDUCATION
+  {
+    id:"epitech",
+    label:"EPITECH",
+    type:"education",
+    x:-280,
+    y:-130,
+    description:
+      "Software Engineering & Computer Science",
+    details:[
+      "C / C++",
+      "Software Architecture",
+      "Systems Programming"
+    ]
+  },
+  {
+    id:"mcgill",
+    label:"McGill",
+    type:"education",
+    x:0,
+    y:-260,
+    description:
+      "Management, Data & Finance",
+    details:[
+      "Python",
+      "Data Analysis",
+      "AI"
+    ]
+  },
+  {
+    id:"apple",
+    label:"Apple",
+    type:"experience",
+    x:300,
+    y:-130,
+    description:
+      "Retail & Customer Experience",
+    details:[
+      "Problem Solving",
+      "Communication",
+      "UX mindset"
+    ]
+  },
+  {
+    id:"intact",
+    label:"Intact",
+    type:"experience",
+    x:-330,
+    y:120,
+    description:
+      "Data & Enterprise Software",
+    details:[
+      "Data",
+      "Business systems"
+    ]
+  },
+  {
+    id:"tribune",
+    label:"The Tribune",
+    type:"experience",
+    x:300,
+    y:140,
+    description:
+      "Media & Analysis",
+    details:[
+      "Writing",
+      "Analysis"
+    ]
+  },
+  {
+    id:"b2life",
+    label:"B2Life",
+    type:"project",
+    x:-120,
+    y:250,
+    description:
+      "AI reinsertion platform",
+    details:[
+      "Next.js",
+      "NestJS",
+      "AI chatbot"
+    ]
+  },
+  {
+    id:"simulator",
+    label:"Customer Simulator",
+    type:"project",
+    x:130,
+    y:300,
+    description:
+      "Behavior simulation engine",
+    details:[
+      "Python",
+      "Data Science",
+      "Machine Learning"
+    ]
+  }
+]
+
+const EDGES = [
+  {
+    from:"johana",
+    to:"epitech"
+  },
+  {
+    from:"johana",
+    to:"mcgill"
+  },
+  {
+    from:"johana",
+    to:"apple"
+  },
+  {
+    from:"johana",
+    to:"intact"
+  },
+  {
+    from:"johana",
+    to:"tribune"
+  },
+  {
+    from:"epitech",
+    to:"b2life"
+  },
+  {
+    from:"mcgill",
+    to:"simulator"
+  },
+  {
+    from:"intact",
+    to:"b2life"
+  }
+]
 
 export default function Home() {
-  const [openSection, setOpenSection] = useState<string | null>(null)
+  const [hovered,setHovered] = useState<string|null>(null)
+  const [selected,setSelected] = useState<string|null>(null)
+  const selectedNode = NODES.find( n=>n.id===selected)
 
-  const toggleSection = (section: string) => {
-    setOpenSection(openSection === section ? null : section)
+  const isConnected = (
+    edge:any )=>{
+      if(!hovered)
+        return true
+    return (
+      edge.from===hovered || edge.to===hovered
+    )
   }
 
   return (
-    <div className="flex flex-col min-h-screen items-center justify-between bg-white dark:bg-black text-foreground font-sans">
-      
-      <main className="flex-1 flex flex-col items-center justify-center w-full max-w-4xl px-6 py-16 text-center">
-        <div className="mb-12 space-y-2">
-          <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight">
-            Johana Gaba
-          </h1>
-          <p className="text-sm text-muted-foreground font-medium">
-            Data IA Profile
-          </p>
-        </div>
+    <main className="relative w-screen h-screen overflow-hidden bg-background text-foreground flex items-center justify-center" >
 
-        <div className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:items-start justify-center gap-6 sm:gap-12 w-full">
+      {/* CONNECTIONS */}
+      <svg className="absolute inset-0 w-full h-full">
+        <g transform="translate(50% 50%)">
+
+        {EDGES.map(
+          (edge,index)=>{ const from = edge.from==="johana" ? { x:0, y:0 } : NODES.find( n=>n.id===edge.from )
+            const to = edge.to==="johana" ? { x:0, y:0 } : NODES.find( n=>n.id===edge.to )
+            if(!from || !to)
+              return null
+            return (
+              <motion.line
+                key={index}
+                x1={from.x}
+                y1={from.y}
+                x2={to.x}
+                y2={to.y}
+                stroke="currentColor"
+                strokeWidth="1"
+                opacity={
+                  isConnected(edge)
+                  ? 0.25
+                  : 0.05
+                }
+              />
+            )
+          }
+        )}
+        </g>
+      </svg>
+
+      {/* CENTER */}
+      <div className="relative z-20 text-center">
+        <h1 className="text-6xl font-medium tracking-tight">
+          Johana Gaba
+        </h1>
+        <p className="mt-3 text-xs uppercase tracking-[0.4em] text-muted-foreground">
+          Software Engineer
+        </p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          AI · Data · Full Stack
+        </p>
+        <div className="flex justify-center gap-5 mt-8 text-sm">
+          <a href="https://github.com/ivsgabi" target="_blank" rel="noopener noreferrer">
+            <img src="github.svg" alt="lien vers mon profil LinkedIn - Johana Gaba" width="30" height="30" />
+          </a>
+          <a href="https://www.linkedin.com/in/johana-gaba-54865926b/" target="_blank" rel="noopener noreferrer">
+            <img src="linkedin.svg" alt="lien vers mon profil LinkedIn - Johana Gaba" width="30" height="30" />
+          </a>
+          <a href="mailto:contact@example.com" target="_blank" rel="noopener noreferrer">
+            <img src="mail.svg" alt="lien vers mon profil LinkedIn - Johana Gaba" width="30" height="30" />
+          </a>
+          <a href="/cv.pdf" target="_blank" rel="noopener noreferrer">
+            <img src="cv.svg" alt="lien vers mon profil LinkedIn - Johana Gaba" width="30" height="30" />
+          </a>
           
-          {/* BACKGROUND */}
-          <div className="flex flex-col items-center">
-            <button 
-              onClick={() => toggleSection("background")}
-              className="flex items-center gap-1.5 text-sm font-medium hover:text-muted-foreground transition-colors cursor-pointer group"
-            >
-              <span>Background</span>
-              <ChevronDown 
-                className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${
-                  openSection === "background" ? "rotate-180" : ""
-                }`} 
-              />
-            </button>
-
-            <div className={`grid transition-all duration-300 ease-in-out ${
-              openSection === "background" 
-                ? "grid-rows-[1fr] opacity-100 mt-3" 
-                : "grid-rows-[0fr] opacity-0 mt-0"
-            }`}>
-              <div className="flex flex-col items-center gap-3 text-center">
-                {/* SCHOOL */}
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mt-2">
-                  Parcours scolaire
-                </p>
-                <Button variant="ghost" className="w-full max-w-xs">Epitech Paris</Button>
-                <Button variant="ghost" className="w-full max-w-xs">McGill University</Button>
-
-                {/* XP */}
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mt-4">
-                  Expériences
-                </p>
-                 <Link className="" href="/xp#nricher">
-                    <Button variant="ghost" className="w-full max-w-xs">nricher</Button>
-                </Link>
-                <Link className="" href="/xp#Apple Retail France">
-                    <Button variant="ghost" className="w-full max-w-xs">Apple Retail France</Button>
-                </Link>
-                <Link className="" href="/xp#The Tribune">
-                    <Button variant="ghost" className="w-full max-w-xs">The Tribune</Button>
-                </Link>
-                 <Link className="" href="/x#Intact Assurance">
-                    <Button variant="ghost" className="w-full max-w-xs">Intact Assurance</Button>
-                </Link>
-               
-              </div>
-            </div>
-          </div>
-
-          {/* MAIN PROJECTS */}
-          <div className="flex flex-col items-center">
-            <button 
-              onClick={() => toggleSection("projects")}
-              className="flex items-center gap-1.5 text-sm font-medium hover:text-muted-foreground transition-colors cursor-pointer group"
-            >
-              <span>Main Projects</span>
-              <ChevronDown 
-                className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${
-                  openSection === "projects" ? "rotate-180" : ""
-                }`} 
-              />
-            </button>
-
-            <div className={`grid transition-all duration-300 ease-in-out ${
-              openSection === "projects" 
-                ? "grid-rows-[1fr] opacity-100 mt-3" 
-                : "grid-rows-[0fr] opacity-0 mt-0"
-            }`}>
-              <div className="overflow-hidden text-xs text-muted-foreground space-y-1 text-center">
-                <p className="font-medium text-foreground">B2Life</p>
-                <p>Plateforme IA & Réinsertion</p>
-              </div>
-            </div>
-          </div>
-
-          {/* CONTACT ME */}
-          <div className="flex flex-col items-center">
-            <button 
-              onClick={() => toggleSection("contact")}
-              className="flex items-center gap-1.5 text-sm font-medium hover:text-muted-foreground transition-colors cursor-pointer group"
-            >
-              <span>Contact Me</span>
-              <ChevronDown 
-                className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${
-                  openSection === "contact" ? "rotate-180" : ""
-                }`} 
-              />
-            </button>
-
-            <div className={`grid transition-all duration-300 ease-in-out ${
-              openSection === "contact" 
-                ? "grid-rows-[1fr] opacity-100 mt-3" 
-                : "grid-rows-[0fr] opacity-0 mt-0"
-            }`}>
-              <div className="overflow-hidden text-xs text-muted-foreground space-y-1 text-center">
-                <p><a href="https://www.linkedin.com/in/johana-gaba-54865926b/" target="_blank" rel="noreferrer" className="hover:underline">LinkedIn</a></p>
-                <p><a href="https://github.com/ivsgabi" target="_blank" rel="noreferrer" className="hover:underline">GitHub</a></p>
-                <p><a href="mailto:gabajohana77@gmail.com" className="hover:underline">Email</a></p>
-              </div>
-            </div>
-          </div>
-
-          {/* 4. DOWNLOAD CV */}
-          <div className="flex flex-col items-center">
-            <button 
-              onClick={() => toggleSection("cv")}
-              className="flex items-center gap-1.5 text-sm font-medium hover:text-muted-foreground transition-colors cursor-pointer group"
-            >
-              <span>Download CV</span>
-              <ChevronDown 
-                className={`h-4 w-4 text-muted-foreground transition-transform duration-300 ${
-                  openSection === "cv" ? "rotate-180" : ""
-                }`} 
-              />
-            </button>
-
-            <div className={`grid transition-all duration-300 ease-in-out ${
-              openSection === "cv" 
-                ? "grid-rows-[1fr] opacity-100 mt-3" 
-                : "grid-rows-[0fr] opacity-0 mt-0"
-            }`}>
-              <div className="overflow-hidden text-xs text-muted-foreground text-center">
-                <a href="/cv.pdf" download className="underline underline-offset-4 hover:text-foreground">
-                  Télécharger (PDF)
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
-      </main>
+      </div>
 
-      {/* FOOTER */}
-      <footer className="py-6 text-[10px] text-muted-foreground">
-        © {new Date().getFullYear()} Johana Gaba - Tous droits réservés
-      </footer>
+      {/* NODES */}
+      {
+        NODES.map(node=>(
+          <motion.div key={node.id} style={{ x:node.x, y:node.y }} whileHover={{ scale:1.08 }} transition={{ type:"spring", stiffness:300 }}
+          onMouseEnter={()=> setHovered(node.id)} onMouseLeave={()=> setHovered(null)} onClick={()=> setSelected(node.id) }
+          className="absolute z-30 min-w-24 px-5 py-2 rounded-xl border bg-background cursor-pointer text-xs font-medium flex justify-center">
+            {node.label}
+          </motion.div>
+        ))
+      }
 
-    </div>
+      {/* DETAIL PANEL */}
+      <AnimatePresence>
+      { selectedNode && ( <motion.div
+          initial={{ opacity:0, y:20 }}
+          animate={{ opacity:1, y:0 }}
+          exit={{ opacity:0 }}
+          className="absolute bottom-10 right-10 z-50 w-72 border bg-background p-6 rounded-2xl"
+        >
+        <h2 className="font-semibold text-lg"> {selectedNode.label} </h2>
+        <p className="text-sm text-muted-foreground mt-2"> {selectedNode.description}</p>
+
+        <ul className="mt-4 space-y-1 text-xs">
+        { selectedNode.details?.map( item=>(
+              <li 
+              key={item}>
+                • {item}
+              </li>
+            )
+          )
+        }
+        </ul>
+        </motion.div>
+      )
+      }
+    </AnimatePresence>
+  </main>
   )
 }
