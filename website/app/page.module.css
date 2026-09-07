@@ -1,0 +1,11 @@
+.fullscreen_container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Takes full viewport height */
+  width: 100%;       /* Takes full viewport width */
+  box-sizing: border-box;
+  
+  /* Optional: centers everything directly in the middle */
+  justify-content: center;
+  align-items: center;
+}
