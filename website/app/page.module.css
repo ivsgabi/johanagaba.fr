@@ -9,3 +9,11 @@
   justify-content: center;
   align-items: center;
 }
+
+.illustration_box {
+  border: 2px dotted rgb(96 139 168);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: blue;
+}

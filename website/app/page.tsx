@@ -13,13 +13,20 @@ export default function Home() {
     //   </p>
     // </main>
 
-    <main className={`${styles.fullscreen_container}  p-8`}>
+    <main className={`${styles.fullscreen_container} p-8`}>
       <h1 className="text-3xl font-bold tracking-tight">
        Johana Gaba
      </h1>
      <p className="text-slate-400 mt-2">
       blablablablabla - to complete,, flex bow btw, everything needs to be responsive
      </p>
+
+    <div className="flex-cols">
+     {/* flex box to contain the illustrations */}
+     {/* grid to put on the illustration */}
+     {/* each star goes bigger when hoover */}
+     {/* modal open when click (or whole new page ? not enough material to say tho) */}
+    </div>
    </main>
 
   );
