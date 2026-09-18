@@ -1,41 +1,38 @@
 /* ==========================================================================
-   1. CONTENEUR GLOBAL (Prend 100% de l'écran et centre tout verticalement)
+   1. CONTENEUR GLOBAL
    ========================================================================== */
 .fullscreen_container {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centre le contenu verticalement */
-  align-items: center;     /* Centre le contenu horizontalement */
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
   width: 100%;
   background-color: #ffffff;
   padding: 1.5rem;
   box-sizing: border-box;
+  position: relative;
 }
 
 /* ==========================================================================
-   2. BLOC TEXTE (Titres plus discrets pour mettre en valeur les étoiles)
+   2. BLOC TEXTE
    ========================================================================== */
 .text_section {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-bottom: 2rem; /* Espace entre le texte et les étoiles */
 }
 
-/* about */
 .about_tag {
-  font-size: 0.9rem; /* Plus petit et discret */
+  font-size: 0.9rem;
   font-weight: 500;
   color: #111827;
   margin-bottom: 0.2rem;
 }
 
-/* Johana */
 .title {
-  /* Taille fluide : minimum 1.8rem, idéal 3.5vw, max 2.4rem */
-  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-size: 52px;
   font-weight: 900;
   letter-spacing: -0.03em;
   color: #000000;
@@ -43,7 +40,6 @@
   margin: 0;
 }
 
-/* subtitle */
 .subtitle {
   font-size: 0.85rem;
   color: #6b7280;
@@ -52,29 +48,26 @@
 }
 
 /* ==========================================================================
-   3. CONTENEUR DES ÉTOILES (Gestion des lignes et du centrage)
+   3. CONTENEUR DES ÉTOILES
    ========================================================================== */
 .illustration_box {
   display: flex;
-  justify-content: center; /* ALIGNEMENT : centre les étoiles sur chaque ligne */
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;         /* Permet aux étoiles de passer à la ligne sur mobile */
-  gap: 12px;               /* Espace horizontal et vertical entre chaque étoile */
+  flex-wrap: wrap;
+  gap: 12px;
   width: 100%;
-  max-width: 1300px;       /* Empêche la boîte d'être écrasée sur grand écran */
+  max-width: 1300px;
 }
 
 /* ==========================================================================
-   4. CHAQUE ÉTOILE (Mobile en priorité : formation 3 en haut, 2 en bas)
+   4. CHAQUE ÉTOILE (Mobile)
    ========================================================================== */
 .star_item {
-  /* TAILLE MOBILE : 29% permet d'en mettre exactement 3 sur la 1re ligne */
-  /* La 4e et 5e passent en dessous et sont centrées par le parent */
   width: 29%;
-  max-width: 130px; /* Évite qu'elles deviennent géantes sur tablette verticale */
-  aspect-ratio: 1;  /* Force la boîte à rester un carré parfait */
+  max-width: 130px;
+  aspect-ratio: 1;
   
-  /* CENTRAGE INTERNE : indispensable pour que l'image soit pile au milieu du bouton */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,35 +76,207 @@
   background: transparent;
   cursor: pointer;
   padding: 0;
-  
+  margin: 0 -14px;
+  position: relative; /* Point d'ancrage pour positionner la carte au-dessus */
+  z-index: 1;
+}
+
+/* L'image interne qui prend l'animation de grossissement */
+.star_item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   will-change: transform;
 }
 
-.star_item:hover {
-  transform: scale(2); /* Zoom au survol (ideal 2/2.5 si qualité amélioré */
-  z-index: 10;            /* Passe au premier plan lors du zoom */
+/* GROSSISSEMENT : au survol OU si l'étoile est active (cliquée) */
+.star_item:hover img,
+.star_item.active img {
+  transform: scale(1.5);
 }
 
-/* L'image SVG ou PNG à l'intérieur du bouton */
-.star_item img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* Empêche l'image de se déformer */
+.star_item:hover,
+.star_item.active {
+  z-index: 30; /* Passe au premier plan par rapport aux autres étoiles */
 }
 
 /* ==========================================================================
-   5. ORDINATEUR (Écrans de 768px et plus)
+   5. ORDINATEUR (768px et plus)
    ========================================================================== */
 @media (min-width: 768px) {
   .illustration_box {
-    flex-wrap: nowrap; /* Bloque impérativement les 5 étoiles sur 1 seule ligne */
-    gap: 20px;         /* Espace légèrement plus aéré sur grand écran */
+    flex-wrap: nowrap;
+    gap: 1px;
   }
 
   .star_item {
-    /* TAILLE DESKTOP : change cette valeur si tu veux encore plus grand */
     width: 250px;
     max-width: none;
   }
+}
+
+/* ==========================================================================
+   6. CARTE TRANSLUCIDE HORIZONTALE (Format allongé / banner)
+   ========================================================================== */
+.playlist_card {
+  position: absolute;
+  bottom: calc(100%);
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* FORMAT ALLONGÉ :
+     - 250px à 280px pour laisser la place à l'image à gauche et au texte à droite */
+  width: clamp(240px, 20vw, 180px);
+  
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;      /* Coins arrondis façon widget iOS */
+  padding: 0.65rem 0.75rem; /* Padding aéré */
+  
+  display: flex;
+  flex-direction: column;   /* Empile l'en-tête (i / ✕) et le contenu horizontal */
+  gap: 0.4rem;
+  cursor: default;
+  z-index: 50;
+  animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* En-tête discrète tout en haut */
+.card_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.info_badge {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.07);
+  color: #111827;
+  font-size: 0.6rem;
+  font-family: serif;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.close_btn {
+  background: none;
+  border: none;
+  font-size: 0.75rem;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.close_btn:hover {
+  color: #000;
+}
+
+/* ==========================================================================
+   7. DISPOSITION HORIZONTALE (Pochette à gauche, Textes à droite)
+   ========================================================================== */
+.cover_link {
+  display: flex;
+  flex-direction: row;      /* ALIGNEMENT CÔTE À CÔTE */
+  align-items: center;      /* Centre verticalement la pochette et le texte */
+  gap: 0.65rem;             /* Espace entre la pochette et les écritures */
+  text-decoration: none;
+  width: 100%;
+}
+
+/* La vignette carrée à gauche */
+.cover_container {
+  position: relative;
+  width: 52px;              /* Largeur fixe de la pochette */
+  height: 52px;             /* Hauteur identique */
+  flex-shrink: 0;           /* EMPÊCHE la pochette d'être écrasée si le texte est long */
+  border-radius: 8px;       /* Coins légèrement arrondis */
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.cover_image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+
+.cover_link:hover .cover_image {
+  transform: scale(1.06);
+}
+
+/* Mini-pastille Play sur la cover */
+.play_overlay {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.65);
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cover_link:hover .play_overlay {
+  background: #fa2d48;      /* Rouge Apple Music */
+  transform: scale(1.1);
+}
+
+/* Bloc texte à droite */
+.cover_info {
+  display: flex;
+  flex-direction: column;   /* Titre au-dessus, lien en-dessous */
+  justify-content: center;
+  align-items: flex-start;  /* Aligne le texte à gauche */
+  text-align: left;
+  gap: 0.15rem;
+  min-width: 0;             /* INDISPENSABLE pour que text-overflow fonctionne */
+  flex: 1;                  /* Remplit tout l'espace restant à droite */
+}
+
+/* Titre de la playlist */
+.playlist_name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+  width: 100%;
+  white-space: nowrap;      /* Force le texte sur une seule ligne */
+  overflow: hidden;
+  text-overflow: ellipsis;  /* Ajoute "..." élégamment si le nom dépasse */
+}
+
+/* Lien Apple Music */
+.open_tag {
+  font-size: 0.66rem;
+  font-weight: 500;
+  color: #fa2d48;           /* Rouge Apple Music */
+  white-space: nowrap;
 }
