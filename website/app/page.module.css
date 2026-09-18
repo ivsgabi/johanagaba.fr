@@ -117,29 +117,28 @@
 }
 
 /* ==========================================================================
-   6. CARTE TRANSLUCIDE HORIZONTALE (Format allongé / banner)
+   6. CARTE PLAYLIST : FORMAT MOBILE PAR DÉFAUT (Carré vertical)
    ========================================================================== */
 .playlist_card {
   position: absolute;
-  bottom: calc(100%);
+  bottom: calc(-95%);
   left: 50%;
   transform: translateX(-50%);
   
-  /* FORMAT ALLONGÉ :
-     - 250px à 280px pour laisser la place à l'image à gauche et au texte à droite */
-  width: clamp(240px, 20vw, 180px);
+  /* Largeur compacte sur smartphone */
+  width: 80px;
   
   background: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  border-radius: 16px;      /* Coins arrondis façon widget iOS */
-  padding: 0.65rem 0.75rem; /* Padding aéré */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 14px;
+  padding: 0.55rem;
   
   display: flex;
-  flex-direction: column;   /* Empile l'en-tête (i / ✕) et le contenu horizontal */
-  gap: 0.4rem;
+  flex-direction: column;
+  gap: 0.35rem;
   cursor: default;
   z-index: 50;
   animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -156,7 +155,7 @@
   }
 }
 
-/* En-tête discrète tout en haut */
+/* En-tête (badge info et bouton fermer) */
 .card_header {
   display: flex;
   justify-content: space-between;
@@ -193,25 +192,22 @@
   color: #000;
 }
 
-/* ==========================================================================
-   7. DISPOSITION HORIZONTALE (Pochette à gauche, Textes à droite)
-   ========================================================================== */
+/* SUR MOBILE : empilement vertical (pochette en haut, texte en bas) */
 .cover_link {
   display: flex;
-  flex-direction: row;      /* ALIGNEMENT CÔTE À CÔTE */
-  align-items: center;      /* Centre verticalement la pochette et le texte */
-  gap: 0.65rem;             /* Espace entre la pochette et les écritures */
+  flex-direction: column;   /* Vertical par défaut */
+  align-items: center;
+  gap: 0.45rem;
   text-decoration: none;
   width: 100%;
 }
 
-/* La vignette carrée à gauche */
+/* Pochette carrée sur mobile : prend toute la largeur de la petite carte */
 .cover_container {
   position: relative;
-  width: 52px;              /* Largeur fixe de la pochette */
-  height: 52px;             /* Hauteur identique */
-  flex-shrink: 0;           /* EMPÊCHE la pochette d'être écrasée si le texte est long */
-  border-radius: 8px;       /* Coins légèrement arrondis */
+  width: 100%;
+  aspect-ratio: 1;          /* Carré parfait */
+  border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
@@ -224,16 +220,16 @@
 }
 
 .cover_link:hover .cover_image {
-  transform: scale(1.06);
+  transform: scale(1.05);
 }
 
-/* Mini-pastille Play sur la cover */
+/* Pastille Play */
 .play_overlay {
   position: absolute;
-  bottom: 4px;
-  right: 4px;
-  width: 20px;
-  height: 20px;
+  bottom: 6px;
+  right: 6px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.65);
   color: #ffffff;
@@ -245,38 +241,91 @@
 }
 
 .cover_link:hover .play_overlay {
-  background: #fa2d48;      /* Rouge Apple Music */
-  transform: scale(1.1);
+  background: #fa2d48;
+  transform: scale(1.08);
 }
 
-/* Bloc texte à droite */
+/* Bloc texte centré sur mobile */
 .cover_info {
   display: flex;
-  flex-direction: column;   /* Titre au-dessus, lien en-dessous */
-  justify-content: center;
-  align-items: flex-start;  /* Aligne le texte à gauche */
-  text-align: left;
+  flex-direction: column;
+  align-items: center;      /* Centré sous l'image */
+  text-align: center;
   gap: 0.15rem;
-  min-width: 0;             /* INDISPENSABLE pour que text-overflow fonctionne */
-  flex: 1;                  /* Remplit tout l'espace restant à droite */
+  width: 100%;
+  min-width: 0;
 }
 
-/* Titre de la playlist */
 .playlist_name {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 700;
   color: #111827;
   margin: 0;
   width: 100%;
-  white-space: nowrap;      /* Force le texte sur une seule ligne */
+  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;  /* Ajoute "..." élégamment si le nom dépasse */
+  text-overflow: ellipsis;
 }
 
-/* Lien Apple Music */
 .open_tag {
-  font-size: 0.66rem;
-  font-weight: 500;
-  color: #fa2d48;           /* Rouge Apple Music */
-  white-space: nowrap;
+  display: none; /* Masque complètement la mention sur smartphone */
+}
+
+/* ==========================================================================
+   SUR ORDINATEUR (768px et plus)
+   ========================================================================== */
+@media (min-width: 768px) {
+  .open_tag {
+    display: inline;       /* Réapparaît uniquement sur grand écran */
+    font-size: 0.66rem;
+    font-weight: 500;
+    color: #fa2d48;
+    white-space: nowrap;
+  }
+  .playlist_card {
+    bottom: calc(-40%);
+  }
+}
+
+
+/* ==========================================================================
+   7. ADAPTATION ORDINATEUR (768px et plus) : FORMAT ALLONGÉ HORIZONTAL
+   ========================================================================== */
+@media (min-width: 768px) {
+  /* Élargissement de la carte sur écran large */
+  .playlist_card {
+    width: clamp(240px, 20vw, 280px);
+    padding: 0.65rem 0.75rem;
+    border-radius: 16px;
+  }
+
+  /* La pochette passe à gauche et les textes à droite */
+  .cover_link {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  /* La pochette redevient une vignette fixe de 52px */
+  .cover_container {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    border-radius: 8px;
+  }
+
+  /* Textes alignés à gauche sur PC */
+  .cover_info {
+    align-items: flex-start;
+    text-align: left;
+    flex: 1;
+  }
+
+  .playlist_name {
+    font-size: 0.78rem;
+  }
+
+  .open_tag {
+    font-size: 0.66rem;
+  }
 }

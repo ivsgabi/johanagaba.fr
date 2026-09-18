@@ -33,7 +33,7 @@ export default function Home() {
       <div className={styles.text_section}>
         <span className={styles.about_tag}>about</span>
         <h1 className={styles.title}>Johana</h1>
-        <p className={styles.subtitle}>yvvyftrffrtgyhyyh</p>
+        <p className={styles.subtitle}>Software Engineer – AI/Data · Python · ML · SQL · Cloud</p>
       </div>
 
       <div className={styles.illustration_box}>
