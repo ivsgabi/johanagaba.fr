@@ -1,19 +1,117 @@
+/* ==========================================================================
+   1. CONTENEUR GLOBAL (Prend 100% de l'écran et centre tout verticalement)
+   ========================================================================== */
 .fullscreen_container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Takes full viewport height */
-  width: 100%;       /* Takes full viewport width */
+  justify-content: center; /* Centre le contenu verticalement */
+  align-items: center;     /* Centre le contenu horizontalement */
+  min-height: 100vh;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 1.5rem;
   box-sizing: border-box;
-  
-  /* Optional: centers everything directly in the middle */
-  justify-content: center;
-  align-items: center;
 }
 
+/* ==========================================================================
+   2. BLOC TEXTE (Titres plus discrets pour mettre en valeur les étoiles)
+   ========================================================================== */
+.text_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 2rem; /* Espace entre le texte et les étoiles */
+}
+
+/* about */
+.about_tag {
+  font-size: 0.9rem; /* Plus petit et discret */
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 0.2rem;
+}
+
+/* Johana */
+.title {
+  /* Taille fluide : minimum 1.8rem, idéal 3.5vw, max 2.4rem */
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #000000;
+  line-height: 1.1;
+  margin: 0;
+}
+
+/* subtitle */
+.subtitle {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+  max-width: 320px;
+}
+
+/* ==========================================================================
+   3. CONTENEUR DES ÉTOILES (Gestion des lignes et du centrage)
+   ========================================================================== */
 .illustration_box {
-  border: 2px dotted rgb(96 139 168);
+  display: flex;
+  justify-content: center; /* ALIGNEMENT : centre les étoiles sur chaque ligne */
+  align-items: center;
+  flex-wrap: wrap;         /* Permet aux étoiles de passer à la ligne sur mobile */
+  gap: 12px;               /* Espace horizontal et vertical entre chaque étoile */
+  width: 100%;
+  max-width: 1300px;       /* Empêche la boîte d'être écrasée sur grand écran */
+}
+
+/* ==========================================================================
+   4. CHAQUE ÉTOILE (Mobile en priorité : formation 3 en haut, 2 en bas)
+   ========================================================================== */
+.star_item {
+  /* TAILLE MOBILE : 29% permet d'en mettre exactement 3 sur la 1re ligne */
+  /* La 4e et 5e passent en dessous et sont centrées par le parent */
+  width: 29%;
+  max-width: 130px; /* Évite qu'elles deviennent géantes sur tablette verticale */
+  aspect-ratio: 1;  /* Force la boîte à rester un carré parfait */
+  
+  /* CENTRAGE INTERNE : indispensable pour que l'image soit pile au milieu du bouton */
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: blue;
+
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+
+.star_item:hover {
+  transform: scale(2); /* Zoom au survol (ideal 2/2.5 si qualité amélioré */
+  z-index: 10;            /* Passe au premier plan lors du zoom */
+}
+
+/* L'image SVG ou PNG à l'intérieur du bouton */
+.star_item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Empêche l'image de se déformer */
+}
+
+/* ==========================================================================
+   5. ORDINATEUR (Écrans de 768px et plus)
+   ========================================================================== */
+@media (min-width: 768px) {
+  .illustration_box {
+    flex-wrap: nowrap; /* Bloque impérativement les 5 étoiles sur 1 seule ligne */
+    gap: 20px;         /* Espace légèrement plus aéré sur grand écran */
+  }
+
+  .star_item {
+    /* TAILLE DESKTOP : change cette valeur si tu veux encore plus grand */
+    width: 250px;
+    max-width: none;
+  }
 }
