@@ -14,13 +14,11 @@ export default function Home() {
     setActiveStarId((prev) => (prev === id ? null : id));
   };
 
-  // Ferme la carte ouverte dès qu'on clique n'importe où ailleurs sur la page
   useEffect(() => {
     if (!activeStarId) return;
 
     const handlePointerDown = (event: PointerEvent) => {
       const target = event.target as HTMLElement;
-      // Si le clic ne provient ni d'une étoile ni d'une carte ouverte, on ferme
       if (!target.closest(`.${styles.star_item}`)) {
         setActiveStarId(null);
       }
@@ -34,72 +32,40 @@ export default function Home() {
 
   return (
     <main className={styles.fullscreen_container}>
-      {/* Section Textuelle */}
       <div className={styles.text_section}>
         <span className={styles.about_tag}>about</span>
         <h1 className={styles.title}>Johana</h1>
         <p className={styles.subtitle}>Software Engineer – AI/Data · Python · ML · SQL · Cloud</p>
       </div>
 
-      {/* Rangée des étoiles */}
+      {/* ALIGNED STAR ICONS */}
       <div className={styles.illustration_box}>
         {data.map((item) => {
           const isSelected = activeStarId === item.id;
 
-          return (
-            <div
-              key={item.id}
-              className={`${styles.star_item} ${isSelected ? styles.active : ''}`}
-              onClick={() => toggleStar(item.id)}
-            >
-              {/* Image de l'étoile */}
-              <Image
-                unoptimized
-                src={item.src}
-                alt={item.name}
-                width={250}
-                height={250}
-                priority
-              />
-
-              {/* 1. CARTE PROJETS (Sous l'étoile Desk) */}
-              {/* APPARITION EN ESCALIER (Sous l'étoile Desk) */}
-                {/* SECTION PROJETS ÉPURÉE & CENTRÉE (Sous l'étoile Desk) */}
-                {isSelected && item.id === 'desk' && item.projects && (
-                  <div
-                    className={styles.list_container}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    {/* Titre de section */}
-                    <span className={styles.list_title}>MAIN PROJECTS</span>
-
-                    {/* Liste des projets centrés avec apparition échelonnée */}
-                    <div className={styles.item_container}>
-                      {item.projects.map((project, index) => (
-                        <a
-                          key={index}
-                          href={project.link || '#'}
-                          target={project.link ? '_blank' : '_self'}
-                          rel="noopener noreferrer"
-                          className={styles.item_content}
-                          style={{ animationDelay: `${(index + 1) * 90}ms` }}
-                        >
-                          <span className={styles.item_title}>{project.title}</span>
-                          <span className={styles.item_desc}>{project.description}</span>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                )}
+            return (
+              <div
+                key={item.id}
+                className={`${styles.star_item} ${isSelected ? styles.active : ''}`}
+                onClick={() => toggleStar(item.id)}
+              >
+                {/* STAR ICON SRC */}
+                <Image
+                  unoptimized
+                  src={item.src}
+                  alt={item.name}
+                  width={250}
+                  height={250}
+                  priority
+                />
 
               {isSelected && item.id === 'badge' && item.education && (
                   <div
                     className={styles.list_container}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    {/* Titre de section */}
+                    {/* TITRE */}
                     <span className={styles.list_title}>EDUCATION</span>
-
                     <div className={styles.item_container}>
                       {item.education.map((item, index) => (
                         <a
@@ -110,6 +76,7 @@ export default function Home() {
                           className={styles.item_content}
                           style={{ animationDelay: `${(index + 1) * 90}ms` }}
                         >
+                          {/* CONTENT */}
                           <span className={styles.item_title}>{item.schoolName}</span>
                           <span className={styles.item_desc}>{item.description}</span>
                         </a>
@@ -117,16 +84,37 @@ export default function Home() {
                     </div>
                   </div>
                 )}
+             
+              {isSelected && item.id === 'desk' && item.projects && (
+                <div
+                  className={styles.list_container}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <span className={styles.list_title}>MAIN PROJECTS</span>
+                  <div className={styles.item_container}>
+                    {item.projects.map((project, index) => (
+                      <a
+                        key={index}
+                        href={project.link || '#'}
+                        target={project.link ? '_blank' : '_self'}
+                        rel="noopener noreferrer"
+                        className={styles.item_content}
+                        style={{ animationDelay: `${(index + 1) * 90}ms` }}
+                      >
+                        <span className={styles.item_title}>{project.title}</span>
+                        <span className={styles.item_desc}>{project.description}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {isSelected && item.id === 'main' && item.main && (
                   <div
                     className={styles.list_container}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    {/* Titre de section */}
                     <span className={styles.list_title}>WELCOME</span>
-
-                    {/* Liste des projets centrés avec apparition échelonnée */}
                     <div className={styles.item_container}>
                       {item.main.map((item, index) => (
                         <a
@@ -149,10 +137,8 @@ export default function Home() {
                     className={styles.list_container}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    {/* Titre de section */}
                     <span className={styles.list_title}>CONNECT WITH ME</span>
 
-                    {/* Liste des projets centrés avec apparition échelonnée */}
                     <div className={styles.item_container}>
                       {item.connect.map((item, index) => (
                         <a
@@ -171,8 +157,8 @@ export default function Home() {
                   </div>
                 )}
 
-              {/* 2. CARTE PLAYLIST (Pour l'étoile Music) */}
-              {isSelected && item.id === 'music' && (
+              {/* MUSIC (iFrame) */}
+              { isSelected && item.id === 'music' && (
                 <div
                   className={styles.playlist_card}
                   onClick={(e) => e.stopPropagation()}
@@ -217,6 +203,7 @@ export default function Home() {
                   </a>
                 </div>
               )}
+
             </div>
           );
         })}
