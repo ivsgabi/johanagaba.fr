@@ -12,7 +12,7 @@ export const data: Illustration[] = [
       {
         schoolName: "McGill University",
         year: "2025-2026",
-        description: "Undergraduate Certificate in Management",
+        description: "Undergraduate Certificate in Business Management",
         link: "https://www.mcgill.ca/",
       },
     ],
@@ -25,19 +25,19 @@ export const data: Illustration[] = [
       {
         title: 'STILL NO JOB',
         description: 'Turning my job hunt into Python-powered predictive analytics.',
-        link: 'https://github.com/...',
+        link: 'https://github.com/ivsgabi?tab=repositories',
         status: "in_works"
       },
       {
         title: 'SNEAK FROM GABI',
         description: 'Building a personalized AI recommender with taste modeling, Python pipelines and AI agents.',
-        link: 'https://github.com/...',
+        link: 'https://github.com/ivsgabi?tab=repositories',
         status: "in_works"
       },
       {
         title: 'RTYPE',
         description: 'C++ multiplayer game with real-time networking and distributed architecture.',
-        link: 'https://github.com/...',
+        link: 'https://github.com/ivsgabi?tab=repositories',
         status: "in_works"
       },
     ],
@@ -46,9 +46,8 @@ export const data: Illustration[] = [
     main: [
       {
         sourceCode: "SEE SOURCE CODE",
-        linkCode: "",
+        linkCode: "https://github.com/ivsgabi/portfolio",
         rating: "RATE THIS PORTFOLIO",
-        ratingAction: ""
       },
     ]
    },

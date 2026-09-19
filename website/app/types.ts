@@ -22,7 +22,6 @@ export interface Main {
   sourceCode: string;
   linkCode: string;
   rating: string;
-  ratingAction: string;
 }
 
 export interface Illustration {
