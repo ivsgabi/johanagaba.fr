@@ -32,8 +32,8 @@
 }
 
 .title {
-  font-size: 60px;
-  font-weight: 900;
+  font-size: 70px;
+  font-weight: 600;
   letter-spacing: -0.03em;
   color: #000000;
   line-height: 1.1;
@@ -42,7 +42,7 @@
 
 .subtitle {
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 500;
   color: #6b7280;
   margin-top: 0.3rem;
   max-width: 320px;
@@ -50,6 +50,7 @@
 
 .smaller_subtitle {
   font-size: 0.65rem;
+  font-weight: 400;
   color: #6b7280;
   margin-top: 0.2rem;
   max-width: 320px;
@@ -130,7 +131,8 @@
 /* ==========================================================================
    6. CARTE PLAYLIST (Apple Music) - Format vertical mobile par défaut
    ========================================================================== */
-.playlist_card {
+.playlist_card { 
+  font-family: var(--font-geist), -apple-system, BlinkMacSystemFont, sans-serif;
   position: absolute;
   bottom: calc(-140%);
   left: 50%;
@@ -306,7 +308,7 @@
   font-weight: bold;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #000000;
+  color: #505050;
   opacity: 0;
   animation: dropFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -346,12 +348,20 @@
   white-space: pre-line;
 }
 
-.item_title_gray {
+.item_title:hover {
+  color: #686767;
+}
+
+.item_app {
   font-size: 0.40rem;
   font-weight: 700;
-  color: #868686;
+  color: #6b7280;
   letter-spacing: -0.01em;
   white-space: pre-line;
+}
+
+.item_app:hover {
+  color: #b7b7b7;
 }
 
 .item_desc {
@@ -364,15 +374,6 @@
   overflow-wrap: break-word;
 }
 
-.item_desc_main {
-  font-size: 0.35rem;
-  color: #6b7280;
-  max-width: 200px;
-  line-height: 1.3;
-  display: block;
-  white-space: pre-line;
-  overflow-wrap: break-word;
-}
 
 @keyframes dropFade {
   from {
@@ -467,7 +468,7 @@
     font-size: 0.75rem;
   }
 
-  .item_title_gray {
+  .item_app {
     font-size: 0.75rem;
   }
 

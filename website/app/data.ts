@@ -42,7 +42,7 @@ export const data: Illustration[] = [
   { id: 'main', name: 'main', src: '/illustrations/star-main.png',
     main: [
       {
-        sourceCode: "SOURCE CODE HERE",
+        sourceCode: "SEE SOURCE CODE",
         linkCode: "",
         rating: "RATE THIS PORTFOLIO",
         ratingAction: ""

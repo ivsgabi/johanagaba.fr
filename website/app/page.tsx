@@ -77,7 +77,7 @@ export default function Home() {
                           style={{ animationDelay: `${(index + 1) * 90}ms` }}
                         >
                           {/* CONTENT */}
-                          <span className={styles.item_title}>{item.schoolName}</span>
+                          <span className={`${styles.item_title}`}>{item.schoolName}</span>
                           <span className={styles.item_desc}>{item.description}</span>
                         </a>
                       ))}
@@ -124,20 +124,6 @@ export default function Home() {
                         className={styles.item_content}
                         style={{ animationDelay: `${(index + 1) * 90}ms` }}
                       >
-                        {/* Premier lien */}
-                        <a
-                          href={entry.linkCode || '#'}
-                          target={entry.linkCode ? '_blank' : '_self'}
-                          rel="noopener noreferrer"
-                          className={styles.item_desc}
-                        >
-                          {entry.sourceCode}
-                        </a>
-
-                        {/* Séparateur / espacement */}
-                        <div className="py-[3px]" />
-
-                        {/* Deuxième lien */}
                         <a
                           href={entry.ratingAction || '#'}
                           target={entry.ratingAction ? '_blank' : '_self'}
@@ -146,6 +132,18 @@ export default function Home() {
                         >
                           {entry.rating}
                         </a>
+                        
+                        <div className="py-[3px]" />
+
+                        <a
+                          href={entry.linkCode || '#'}
+                          target={entry.linkCode ? '_blank' : '_self'}
+                          rel="noopener noreferrer"
+                          className={`${styles.item_desc} underline`}
+                        >
+                          {entry.sourceCode}
+                        </a>
+                        
                       </div>
                     ))}
                   </div>
@@ -169,8 +167,7 @@ export default function Home() {
                           className={styles.item_content}
                           style={{ animationDelay: `${(index + 1) * 90}ms` }}
                         >
-                          <span className={styles.item_title_gray}>{item.app}</span>
-                          {/* <span className={styles.item_desc}>{item.subtitle}</span> */}
+                          <span className={styles.item_app}>{item.app}</span>
                         </a>
                       ))}
                     </div>
