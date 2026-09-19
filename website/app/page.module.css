@@ -20,13 +20,7 @@
   text-align: center;
 }
 
-.about_tag {
-  font-size: 0.6rem;
-  font-weight: bold;
-  color: #6b7280;
-  margin-bottom: 0.2rem;
-}
-
+/* Johana Gaba */
 .title {
   font-size: 56px;
   font-weight: 600;
@@ -36,6 +30,7 @@
   margin: 0;
 }
 
+/* Software Engineer */
 .subtitle {
   font-size: 1rem;
   font-weight: 500;
@@ -44,6 +39,7 @@
   max-width: 320px;
 }
 
+/* AI/Data · Python · ML · SQL · Cloud */
 .smaller_subtitle {
   font-size: 0.65rem;
   font-weight: 400;
@@ -64,11 +60,9 @@
   margin: 0 auto;
 }
 
-/* ==========================================================================
-   4. CHAQUE ÉTOILE (Mobile)
-   ========================================================================== */
+/* STARS ITEM (mobile-first) */
 .star_item {
-  flex: 0 0 31%;            /* 3 x 31% = 93% -> 3 sur la 1re rangée, 2 sur la 2e */
+  flex: 0 0 31%;         
   max-width: 100px;
   aspect-ratio: 1;
   
@@ -80,7 +74,7 @@
   background: transparent;
   cursor: pointer;
   padding: 0;
-  margin: 0 -8px;           /* Rapprochement des étoiles */
+  margin: 0 -8px;          
   position: relative;
   z-index: 1;
   
@@ -105,26 +99,20 @@
   z-index: 30;
 }
 
-/* POUSSÉE DE LA 2e RANGÉE : dégage l'espace pour le texte quand l'étoile est active */
+/* dégage l'espace pour le texte quand l'étoile est active, 2nd range */
 .star_item.active {
   z-index: 30;
   margin-bottom: 95px;
 }
 
-/* ==========================================================================
-   5. ORDRE SUR MOBILE (Inversion de la 2e et 3e étoile)
-   Rangée 1 : 1ère (gauche), 3ème (milieu), 2ème (droite)
-   Rangée 2 : 4ème (gauche), 5ème (droite)
-   ========================================================================== */
+/* ORDER MANAGEMENT */
 .star_item:nth-child(1) { order: 1; }
-.star_item:nth-child(2) { order: 3; } /* Desk passe à droite */
-.star_item:nth-child(3) { order: 2; } /* Standing passe au milieu */
+.star_item:nth-child(2) { order: 3; } 
+.star_item:nth-child(3) { order: 2; }
 .star_item:nth-child(4) { order: 4; }
 .star_item:nth-child(5) { order: 5; }
 
-/* ==========================================================================
-   6. CARTE PLAYLIST (Apple Music) - Format vertical mobile par défaut
-   ========================================================================== */
+/* PLAYLIST CARD (mobile-first) */
 .playlist_card { 
   font-family: var(--font-geist), -apple-system, BlinkMacSystemFont, sans-serif;
   position: absolute;
@@ -134,8 +122,6 @@
   width: 80px;
   
   background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   border-radius: 14px;
@@ -275,9 +261,7 @@
   white-space: nowrap;
 }
 
-/* ==========================================================================
-   7. SECTION PROJETS DESK (Textes épurés - Tailles fines mobile)
-   ========================================================================== */
+/* STAR DESK DROPDOWN (& others) */
 .list_container {
   position: absolute;
   top: calc(100%);
@@ -296,7 +280,7 @@
   z-index: 40;
 }
 
-/* Titre "MAIN PROJECTS" sur mobile */
+/* MAIN PROJECTS title (mobile-first) */
 .list_title {
   font-size: 0.45rem;
   font-weight: bold;
@@ -333,7 +317,7 @@
   transform: translateY(-1px);
 }
 
-/* Titre du projet sur mobile */
+/* PROJECT TITLE (mobile-first) */
 .item_title {
   font-size: 0.40rem;
   font-weight: 700;
@@ -360,14 +344,12 @@
 
 .item_desc {
   font-size: 0.35rem;
-  color: #6b7280;
   max-width: 200px;
   line-height: 1.3;
   display: block;
   white-space: pre-line;
   overflow-wrap: break-word;
 }
-
 
 @keyframes dropFade {
   from {
@@ -380,9 +362,7 @@
   }
 }
 
-/* ==========================================================================
-   8. ORDINATEUR (768px et plus) : 1 SEULE LIGNE & POLICES PC
-   ========================================================================== */
+/* BIG SCREEN HANDLING (ordinateur) */
 @media (min-width: 768px) {
   .illustration_box {
     flex-wrap: nowrap;
@@ -391,7 +371,7 @@
     gap: 1px;
   }
 
-  /* Rétablit l'ordre naturel sur PC (1, 2, 3, 4, 5) et supprime la poussée */
+/* simple order, no push down */
   .star_item {
     order: 0 !important;
     flex: none;
@@ -404,7 +384,7 @@
     margin-bottom: 0;
   }
 
-  /* Carte Playlist horizontale sur PC */
+  /* horizontale */
   .playlist_card {
     bottom: calc(-40%);
     width: clamp(200px, 20vw, 120px);
@@ -443,7 +423,6 @@
     white-space: nowrap;
   }
 
-  /* Section Projets agrandie sur PC */
   .list_container {
     top: calc(95%);
     gap: 0.85rem;
@@ -469,5 +448,122 @@
   .item_desc {
     font-size: 0.62rem;
     max-width: 290px;
+  }
+}
+
+/* MENTIONS BAS DE PAGE */
+.footer {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  text-align: center;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.footer_text {
+  font-size: 0.58rem;       
+  color: #9ca3af;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.footer_subtext {
+  font-size: 0.52rem;       
+  color: #d1d5db;
+  margin: 0;
+}
+
+.footer_link {
+  color: #9ca3af;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.footer_link:hover {
+  color: #111827;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  .footer {
+    bottom: 1.8rem;
+    gap: 0.3rem;
+  }
+
+  .footer_text {
+    font-size: 0.65rem;     /* ~10.5px sur PC */
+  }
+
+  .footer_subtext {
+    font-size: 0.58rem;     /* ~9.5px sur PC */
+  }
+}
+
+/* IN WORKS PROJECT HANDLIND (disabled) */
+.item_disabled {
+  position: relative;
+  pointer-events: none;       /* Empêche tout clic */
+  user-select: none;          /* Empêche la sélection de texte */
+  cursor: not-allowed;
+  border-radius: 10px;
+}
+
+.item_disabled > * {
+  filter: blur(2px) grayscale(1);
+  opacity: 0.25;
+  transition: all 0.2s ease;
+}
+
+.item_disabled::after {
+  content: "COMING SOON";
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* Typographie */
+  font-size: 0.4rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #505050;
+ 
+}
+
+@media (min-width: 768px) {
+  .item_disabled::after {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.75rem;
+  }
+}
+
+.action_btn {
+  font-size: 0.35rem;
+  color: #6b7280;
+  max-width: 200px;
+  line-height: 1.3;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  text-align: inherit;
+}
+
+.action_btn:hover {
+  color: #b6b7b8;
+}
+
+@media (min-width: 768px) {
+  .action_btn {
+    bottom: 1.8rem;
+    font-size: 0.62rem;
   }
 }

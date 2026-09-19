@@ -2,6 +2,7 @@ export interface Project {
   title: string;
   description: string;
   link?: string;
+  status?: "live" | "in_works";
 }
 
 export interface Education {

@@ -5,10 +5,12 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import styles from './page.module.css';
 import { data } from "./data";
+import RatingModal from "@/components/RatingModal";
 
 
 export default function Home() {
   const [activeStarId, setActiveStarId] = useState<string | null>(null);
+  const [isRatingOpen, setIsRatingOpen] = useState(false);
 
   const toggleStar = (id: string) => {
     setActiveStarId((prev) => (prev === id ? null : id));
@@ -77,7 +79,7 @@ export default function Home() {
                           style={{ animationDelay: `${(index + 1) * 90}ms` }}
                         >
                           {/* CONTENT */}
-                          <span className={`${styles.item_title}`}>{item.schoolName}</span>
+                          <span className={`${styles.item_title} hover:underline hover:underline-offset-2`}>{item.schoolName}</span>
                           <span className={styles.item_desc}>{item.description}</span>
                         </a>
                       ))}
@@ -92,19 +94,32 @@ export default function Home() {
                 >
                   <span className={styles.list_title}>MAIN PROJECTS</span>
                   <div className={styles.item_container}>
-                    {item.projects.map((project, index) => (
-                      <a
-                        key={index}
-                        href={project.link || '#'}
-                        target={project.link ? '_blank' : '_self'}
-                        rel="noopener noreferrer"
-                        className={styles.item_content}
-                        style={{ animationDelay: `${(index + 1) * 90}ms` }}
-                      >
-                        <span className={styles.item_title}>{project.title}</span>
-                        <span className={styles.item_desc}>{project.description}</span>
-                      </a>
-                    ))}
+                    {item.projects.map((project, index) => {
+                      const isInWorks = project.status === "in_works";
+
+                      return isInWorks ? ( /* disabled */
+                        <div
+                          key={index}
+                          className={`${styles.item_content} ${styles.item_disabled}`}
+                          style={{ animationDelay: `${(index + 1) * 90}ms` }}
+                        >
+                          <span className={styles.item_title}>{project.title}</span>
+                          <span className={styles.item_desc}>{project.description}</span>
+                        </div>
+                      ) : (
+                        <a
+                          key={index}
+                          href={project.link || "#"}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.item_content}
+                          style={{ animationDelay: `${(index + 1) * 90}ms` }}
+                        >
+                          <span className={styles.item_title}>{project.title}</span>
+                          <span className={styles.item_desc}>{project.description}</span>
+                        </a>
+                      );
+                    })}
                   </div>
                 </div>
               )}
@@ -118,32 +133,32 @@ export default function Home() {
 
                   <div className={styles.item_container}>
                     {item.main.map((entry, index) => (
-                      /* 1. Remplacement du <a> externe par un <div> */
                       <div
                         key={index}
                         className={styles.item_content}
                         style={{ animationDelay: `${(index + 1) * 90}ms` }}
                       >
                         <a
-                          href={entry.ratingAction || '#'}
-                          target={entry.ratingAction ? '_blank' : '_self'}
-                          rel="noopener noreferrer"
-                          className={styles.item_desc}
-                        >
-                          {entry.rating}
-                        </a>
-                        
-                        <div className="py-[3px]" />
-
-                        <a
                           href={entry.linkCode || '#'}
-                          target={entry.linkCode ? '_blank' : '_self'}
+                          target="_blank"
                           rel="noopener noreferrer"
-                          className={`${styles.item_desc} underline`}
+                          className={`${styles.item_desc} text-[#6b7280] hover:underline hover:underline-offset-2 hover:text-[#b6b7b8]`}
                         >
                           {entry.sourceCode}
                         </a>
-                        
+
+                        <div className="py-[1.2px]" />
+
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setIsRatingOpen(true);
+                          }}
+                          className={`${styles.item_desc} ${styles.action_btn}`}
+                        >
+                          {entry.rating}
+                        </button>
                       </div>
                     ))}
                   </div>
@@ -167,7 +182,7 @@ export default function Home() {
                           className={styles.item_content}
                           style={{ animationDelay: `${(index + 1) * 90}ms` }}
                         >
-                          <span className={styles.item_app}>{item.app}</span>
+                          <span className={`${styles.item_app} hover:underline hover:underline-offset-2`}>{item.app}</span>
                         </a>
                       ))}
                     </div>
@@ -224,6 +239,35 @@ export default function Home() {
           );
         })}
       </div>
+      <footer className={styles.footer}>
+        <p className={styles.footer_text}>
+          © {new Date().getFullYear()} — All rights reserved
+        </p>
+        <p className={styles.footer_subtext}>
+          Powered by{" "}
+          <a
+            href="https://nextjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.footer_link}
+          >
+            Next.js
+          </a>{" "}
+          &amp;{" "}
+          <a
+            href="https://vercel.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.footer_link}
+          >
+            Vercel
+          </a>
+        </p>
+      </footer>
+      <RatingModal
+        isOpen={isRatingOpen}
+        onClose={() => setIsRatingOpen(false)}
+      />
     </main>
   );
 }
