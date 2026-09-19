@@ -1,6 +1,4 @@
-/* ==========================================================================
-   1. CONTENEUR GLOBAL
-   ========================================================================== */
+/* CONTENEUR GLOBAL */
 .fullscreen_container {
   display: flex;
   flex-direction: column;
@@ -14,9 +12,7 @@
   position: relative;
 }
 
-/* ==========================================================================
-   2. BLOC TEXTE
-   ========================================================================== */
+/* TEXT CONTAINER */
 .text_section {
   display: flex;
   flex-direction: column;
@@ -56,9 +52,7 @@
   max-width: 320px;
 }
 
-/* ==========================================================================
-   3. CONTENEUR DES ÉTOILES (Mobile : 3 en haut / 2 en bas)
-   ========================================================================== */
+/* STARS CONTAINER */
 .illustration_box {
   display: flex;
   justify-content: center;
