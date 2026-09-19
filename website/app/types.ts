@@ -18,8 +18,10 @@ export interface Connect {
 }
 
 export interface Main {
-  title: string;
-  text: string;
+  sourceCode: string;
+  linkCode: string;
+  rating: string;
+  ratingAction: string;
 }
 
 export interface Illustration {

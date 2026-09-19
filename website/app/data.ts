@@ -6,13 +6,13 @@ export const data: Illustration[] = [
       {
         schoolName: "EPITECH Paris",
         year: "2022-2027",
-        description: "Programme Grande Ecole en Sciences de l'Information (RNCP 7), M2 (finale year).",
+        description: "Programme Grande Ecole\n Expert en ingénierie logicielle (RNCP niv. 7)",
         link: "https://www.epitech.eu/",
       },
       {
-        schoolName: "McGill University, Montréal",
+        schoolName: "McGill University",
         year: "2025-2026",
-        description: "Certificate In Management",
+        description: "Undergraduate Certificate in Management",
         link: "https://www.mcgill.ca/",
       },
     ],
@@ -24,17 +24,17 @@ export const data: Illustration[] = [
     projects: [
       {
         title: 'STILL NO JOB',
-        description: 'AI & Data Processing Pipeline with Python',
+        description: 'Turning my job hunt into Python-powered predictive analytics.',
         link: 'https://github.com/...',
       },
       {
         title: 'SNEAK FROM GABI',
-        description: 'Interactive Computer Vision & QR Engine',
+        description: 'Building a personalized AI recommender with taste modeling, Python pipelines and AI agents.',
         link: 'https://github.com/...',
       },
       {
         title: 'RTYPE',
-        description: 'Interactive Computer Vision & QR Engine',
+        description: 'C++ multiplayer game with real-time networking and distributed architecture.',
         link: 'https://github.com/...',
       },
     ],
@@ -42,8 +42,10 @@ export const data: Illustration[] = [
   { id: 'main', name: 'main', src: '/illustrations/star-main.png',
     main: [
       {
-        title: 'Welcome on my portoflio website. Coded with ... Source code here ... Rate this portfolio',
-        text: 'RATE THIS PORTFOLIO',
+        sourceCode: "SOURCE CODE HERE",
+        linkCode: "",
+        rating: "RATE THIS PORTFOLIO",
+        ratingAction: ""
       },
     ]
    },

@@ -33,9 +33,9 @@ export default function Home() {
   return (
     <main className={styles.fullscreen_container}>
       <div className={styles.text_section}>
-        <span className={styles.about_tag}>about</span>
-        <h1 className={styles.title}>Johana</h1>
-        <p className={styles.subtitle}>Software Engineer – AI/Data · Python · ML · SQL · Cloud</p>
+        <h1 className={styles.title}>Johana Gaba</h1>
+        <p className={styles.subtitle}>Software Engineer</p>
+        <p className={styles.smaller_subtitle}>AI/Data · Python · ML · SQL · Cloud</p>
       </div>
 
       {/* ALIGNED STAR ICONS */}
@@ -110,27 +110,47 @@ export default function Home() {
               )}
 
               {isSelected && item.id === 'main' && item.main && (
-                  <div
-                    className={styles.list_container}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <span className={styles.list_title}>WELCOME</span>
-                    <div className={styles.item_container}>
-                      {item.main.map((item, index) => (
+                <div
+                  className={styles.list_container}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <span className={styles.list_title}>WELCOME</span>
+
+                  <div className={styles.item_container}>
+                    {item.main.map((entry, index) => (
+                      /* 1. Remplacement du <a> externe par un <div> */
+                      <div
+                        key={index}
+                        className={styles.item_content}
+                        style={{ animationDelay: `${(index + 1) * 90}ms` }}
+                      >
+                        {/* Premier lien */}
                         <a
-                          key={index}
+                          href={entry.linkCode || '#'}
+                          target={entry.linkCode ? '_blank' : '_self'}
                           rel="noopener noreferrer"
-                          className={styles.item_content}
-                          style={{ animationDelay: `${(index + 1) * 90}ms` }}
+                          className={styles.item_desc}
                         >
-                          <span className={styles.item_title}>{item.title}</span>
-                          <span className={styles.item_desc}>{item.text}</span>
-                          {/* <span className={styles.item_desc}>{item.subtitle}</span> */}
+                          {entry.sourceCode}
                         </a>
-                      ))}
-                    </div>
+
+                        {/* Séparateur / espacement */}
+                        <div className="py-[3px]" />
+
+                        {/* Deuxième lien */}
+                        <a
+                          href={entry.ratingAction || '#'}
+                          target={entry.ratingAction ? '_blank' : '_self'}
+                          rel="noopener noreferrer"
+                          className={styles.item_desc}
+                        >
+                          {entry.rating}
+                        </a>
+                      </div>
+                    ))}
                   </div>
-                )}
+                </div>
+              )}
 
               {isSelected && item.id === 'phone' && item.connect && (
                   <div
@@ -149,7 +169,7 @@ export default function Home() {
                           className={styles.item_content}
                           style={{ animationDelay: `${(index + 1) * 90}ms` }}
                         >
-                          <span className={styles.item_title}>{item.app}</span>
+                          <span className={styles.item_title_gray}>{item.app}</span>
                           {/* <span className={styles.item_desc}>{item.subtitle}</span> */}
                         </a>
                       ))}
@@ -164,7 +184,6 @@ export default function Home() {
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className={styles.card_header}>
-                    <span className={styles.info_badge}>i</span>
                     <button
                       type="button"
                       className={styles.close_btn}
@@ -198,7 +217,7 @@ export default function Home() {
                     </div>
                     <div className={styles.cover_info}>
                       <p className={styles.playlist_name}>{item.playlistTitle}</p>
-                      <span className={styles.open_tag}>Écouter sur Apple Music ↗</span>
+                      <span className={styles.open_tag}> Music</span>
                     </div>
                   </a>
                 </div>
