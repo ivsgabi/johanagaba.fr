@@ -29,7 +29,6 @@ export default function RatingModal({ isOpen, onClose }: RatingModalProps) {
     };
 
     try {
-      // Endpoint API
       await fetch("/api/rate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -56,7 +55,7 @@ export default function RatingModal({ isOpen, onClose }: RatingModalProps) {
         </div>
 
         {submitted ? (
-          <p className={styles.success_msg}>Merci ! Données enregistrées.</p>
+          <p className={styles.success_msg}>Merci !</p>
         ) : (
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.field_group}>
@@ -103,7 +102,7 @@ export default function RatingModal({ isOpen, onClose }: RatingModalProps) {
             </div>
 
             <button type="submit" className={styles.submit_btn} disabled={loading}>
-              {loading ? "Envoi..." : "Envoyer le feedback"}
+              {loading ? "Sending..." : "Send Feedback"}
             </button>
           </form>
         )}
