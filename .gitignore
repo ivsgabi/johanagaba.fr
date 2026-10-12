@@ -1,0 +1,5 @@
+/website/.env
+/website/.env.local
+/portfolio-analytics/.env
+/portfolio-analytics/venv/*
+/portfolio-analytics/.env

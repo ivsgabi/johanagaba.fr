@@ -52,7 +52,7 @@
 .illustration_box {
   display: flex;
   justify-content: center;
-  align-items: flex-start;  /* Empêche les autres étoiles de bouger quand l'une s'ouvre */
+  align-items: flex-start; 
   flex-wrap: wrap;          /* Permet le passage à la ligne */
   gap: 0;
   width: 100%;
