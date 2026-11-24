@@ -6,11 +6,13 @@ import Image from 'next/image';
 import styles from './page.module.css';
 import { data } from "./data";
 import RatingModal from "@/components/RatingModal";
+import DashboardModal from "@/components/DashboardModal";
 
 
 export default function Home() {
   const [activeStarId, setActiveStarId] = useState<string | null>(null);
   const [isRatingOpen, setIsRatingOpen] = useState(false);
+  const [isDashboardOpen, setIsDashboardOpen] = useState(false);
 
   const toggleStar = (id: string) => {
     setActiveStarId((prev) => (prev === id ? null : id));
@@ -97,28 +99,39 @@ export default function Home() {
                     {item.projects.map((project, index) => {
                       const isInWorks = project.status === "in_works";
 
-                      return isInWorks ? ( /* disabled */
-                        <div
-                          key={index}
-                          className={`${styles.item_content} ${styles.item_disabled}`}
-                          style={{ animationDelay: `${(index + 1) * 90}ms` }}
-                        >
-                          <span className={styles.item_title}>{project.title}</span>
-                          <span className={styles.item_desc}>{project.description}</span>
-                        </div>
-                      ) : (
-                        <a
-                          key={index}
-                          href={project.link || "#"}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={styles.item_content}
-                          style={{ animationDelay: `${(index + 1) * 90}ms` }}
-                        >
-                          <span className={styles.item_title}>{project.title}</span>
-                          <span className={styles.item_desc}>{project.description}</span>
-                        </a>
-                      );
+                      return isInWorks ? (
+                      <div
+                        key={index}
+                        className={`${styles.item_content} ${styles.item_disabled}`}
+                        style={{ animationDelay: `${(index + 1) * 90}ms` }}
+                      >
+                        <span className={styles.item_title}>{project.title}</span>
+                        <span className={styles.item_desc}>{project.description}</span>
+                      </div>
+                    ) : project.title === "RATE MY PORTFOLIO" ? (
+                      <button
+                        key={index}
+                        type="button"
+                        onClick={() => setIsDashboardOpen(true)}
+                        className={styles.item_content}
+                        style={{ animationDelay: `${(index + 1) * 90}ms` }}
+                      >
+                        <span className={styles.item_title}>{project.title}</span>
+                        <span className={styles.item_desc}>{project.description}</span>
+                      </button>
+                    ) : (
+                      <a
+                        key={index}
+                        href={project.link || "#"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.item_content}
+                        style={{ animationDelay: `${(index + 1) * 90}ms` }}
+                      >
+                        <span className={styles.item_title}>{project.title}</span>
+                        <span className={styles.item_desc}>{project.description}</span>
+                      </a>
+                    );
                     })}
                   </div>
                 </div>
@@ -267,6 +280,10 @@ export default function Home() {
       <RatingModal
         isOpen={isRatingOpen}
         onClose={() => setIsRatingOpen(false)}
+      />
+      <DashboardModal
+        isOpen={isDashboardOpen}
+        onClose={() => setIsDashboardOpen(false)}
       />
     </main>
   );

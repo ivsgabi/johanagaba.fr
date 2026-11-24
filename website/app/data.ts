@@ -25,7 +25,7 @@ export const data: Illustration[] = [
       {
         title: 'RATE MY PORTFOLIO',
         description: 'A Power BI dashboard of visitor feedback collected through Supabase.',
-        link: '/rate-my-portfolio',
+        link: '#',
         status: "live"
       },
       {
