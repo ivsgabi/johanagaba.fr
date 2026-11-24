@@ -57,7 +57,7 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #0114c6;
+  color: #000000a9;
 }
 
 .form {
@@ -94,7 +94,7 @@
   background: none;
   border: none;
   font-size: 1.65rem;
-  color: #e5e7eb;
+  color: #000000be;
   cursor: pointer;
   padding: 0;
   line-height: 1;
@@ -106,7 +106,7 @@
 }
 
 .score_active {
-  color: #0114c6;
+  color: #ff00bb;
 }
 
 .choice_group {
@@ -161,7 +161,7 @@
 
 .submit_btn {
   width: 100%;
-  background: #0114c6;
+  background: #000000;
   color: #ffffff;
   border: none;
   border-radius: 9999px;
@@ -176,6 +176,7 @@
 
 .submit_btn:hover {
   opacity: 0.9;
+  background: #ff00bb;
   transform: translateY(-1px);
 }
 
