@@ -23,10 +23,10 @@ export const data: Illustration[] = [
     src: '/illustrations/star-desk.png',
     projects: [
       {
-        title: 'STILL NO JOB',
-        description: 'Turning my job hunt into Python-powered predictive analytics.',
-        link: 'https://github.com/ivsgabi?tab=repositories',
-        status: "in_works"
+        title: 'RATE MY PORTFOLIO',
+        description: 'A Power BI dashboard of visitor feedback collected through Supabase.',
+        link: '/rate-my-portfolio',
+        status: "live"
       },
       {
         title: 'SNEAK FROM GABI',
