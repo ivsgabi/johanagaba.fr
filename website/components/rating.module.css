@@ -1,12 +1,14 @@
+
 .backdrop {
   position: fixed;
   inset: 0;
   background: rgba(63, 63, 63, 0.8);
-  
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 100;
+  padding: 1rem;
+  box-sizing: border-box;
   animation: fadeIn 0.25s ease-out;
 }
 
@@ -14,7 +16,9 @@
   position: relative;
   width: 90%;
   max-width: 330px;
-  background: rgba(255, 255, 255, 1);
+  max-height: 85vh;
+  overflow-y: auto;
+  background: #ffffff;
   border-radius: 28px;
   padding: 2.2rem 1.6rem 1.8rem;
   box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.1);
@@ -53,7 +57,7 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #000000;
+  color: #000000a9;
 }
 
 .form {
@@ -74,7 +78,7 @@
 
 .label {
   font-size: 0.62rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #6b7280;
@@ -90,7 +94,7 @@
   background: none;
   border: none;
   font-size: 1.65rem;
-  color: #e5e7eb;
+  color: #000000be;
   cursor: pointer;
   padding: 0;
   line-height: 1;
@@ -102,30 +106,32 @@
 }
 
 .score_active {
-  color: #000000;
+  color: #ff00bb;
 }
 
-.role_btn {
+.choice_group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.choice_btn {
   font-size: 0.65rem;
   font-weight: 400;
-  border: none;
-  padding: 0.35rem 0.8rem;
+  padding: 0.3rem 0.6rem;
   cursor: pointer;
   color: #6b7280;
   transition: all 0.2s ease;
 }
 
-.role_btn:hover {
+.choice_btn:hover {
   color: #000000;
 }
 
-.role_active {
+.choice_active {
   color: #000000;
   font-weight: 700;
-}
-
-.role_active:hover {
-  color: #000000;
 }
 
 .textarea {
@@ -170,6 +176,7 @@
 
 .submit_btn:hover {
   opacity: 0.9;
+  background: #ff00bb;
   transform: translateY(-1px);
 }
 
@@ -177,11 +184,22 @@
   transform: translateY(0);
 }
 
+.submit_btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .success_msg {
   font-size: 0.8rem;
   font-weight: 500;
   color: #111827;
   padding: 0.7rem 0;
+}
+
+.error_msg {
+  font-size: 0.72rem;
+  color: #dc2626;
+  margin: 0;
 }
 
 @keyframes fadeIn {

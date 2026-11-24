@@ -1,3 +1,4 @@
+
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
@@ -8,37 +9,65 @@ const supabaseKey =
 
 export async function POST(req: Request) {
   console.log("--> Requête reçue sur /api/rate");
-  console.log("Supabase URL présente ?", Boolean(supabaseUrl));
-  console.log("Supabase Key présente ?", Boolean(supabaseKey));
 
   try {
     const body = await req.json();
-    console.log("Données reçues :", body);
 
     if (!supabaseUrl || !supabaseKey) {
-      console.error("ERREUR : Clés Supabase manquantes dans les variables d'environnement !");
-      return NextResponse.json({ error: "Configuration manquante" }, { status: 500 });
+      console.error("ERREUR : Variables Supabase manquantes");
+      return NextResponse.json(
+        { error: "Configuration Supabase manquante" },
+        { status: 500 }
+      );
+    }
+
+    const score = Number(body.score);
+    const role = String(body.role || "").trim();
+    const discoverySource =
+      typeof body.discovery_source === "string"
+        ? body.discovery_source.trim() || null
+        : null;
+    const suggestion =
+      typeof body.suggestion === "string"
+        ? body.suggestion.trim() || null
+        : null;
+
+    if (!Number.isInteger(score) || score < 1 || score > 5 || !role) {
+      return NextResponse.json(
+        { error: "Données invalides" },
+        { status: 400 }
+      );
     }
 
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    const { data, error } = await supabase.from("ratings").insert([
-      {
-        score: Number(body.score),
-        role: String(body.role),
-        suggestion: body.suggestion || null,
-      },
-    ]);
+    const { error } = await supabase.from("ratings").insert({
+      score,
+      role,
+      discovery_source: discoverySource,
+      suggestion,
+    });
 
     if (error) {
       console.error("ERREUR Supabase :", error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500 }
+      );
     }
 
     console.log("--> Succès insertion !");
-    return NextResponse.json({ success: true }, { status: 201 });
+
+    return NextResponse.json(
+      { success: true },
+      { status: 201 }
+    );
   } catch (err) {
     console.error("ERREUR Serveur :", err);
-    return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
+
+    return NextResponse.json(
+      { error: "Erreur serveur" },
+      { status: 500 }
+    );
   }
 }
