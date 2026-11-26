@@ -106,7 +106,7 @@
 }
 
 .score_active {
-  color: #ff00bb;
+  color: #4f6542;
 }
 
 .choice_group {
@@ -176,7 +176,7 @@
 
 .submit_btn:hover {
   opacity: 0.9;
-  background: #ff00bb;
+  background: #4f6542;
   transform: translateY(-1px);
 }
 
